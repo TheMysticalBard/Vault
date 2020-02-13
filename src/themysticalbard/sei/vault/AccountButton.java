@@ -19,7 +19,7 @@ public class AccountButton extends Button {
             class Potato {
                 String username, pass;
 
-                Potato(String u, String p){username = u; pass = p;}
+                Potato(String u, String p){ username = u; pass = p; }
             }
 
             Dialog<Potato> dialog = new Dialog<>();
