@@ -52,8 +52,6 @@ public class AccountButton extends Button {
 
 
 
-
-
             //Change to logout
             super.setText(loggedIn ? "Login" : "Logout");
             loggedIn = !loggedIn;
