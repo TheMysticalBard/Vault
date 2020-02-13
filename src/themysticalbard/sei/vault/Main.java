@@ -17,7 +17,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
 
-        AccountButton accountManagement = new AccountButton("Login");
+        AccountButton accountManagement = new AccountButton("Login", vault);
 
         root.setTop(accountManagement);
 
