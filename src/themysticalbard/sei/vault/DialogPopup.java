@@ -1,11 +1,11 @@
 package themysticalbard.sei.vault;
 
-import javafx.scene.text.Text;
-import javafx.stage.Popup;
+import javafx.scene.control.Alert;
 
-public class DialogPopup extends Popup {
+public class DialogPopup extends Alert {
     DialogPopup(String text) {
-        super();
-        super.getContent().add(new Text(text));
+        super(AlertType.WARNING);
+        super.setHeaderText(null);
+        super.setContentText(text);
     }
 }

@@ -26,8 +26,8 @@ public class Main extends Application {
         Button openVault = new Button("Open Vault");
         openVault.setOnAction(event -> {
             //Check if vault is unlocked, otherwise give them a DialogPopup
-            DialogPopup myPopup = new DialogPopup("Hey bitch vault's closed.");
-            myPopup.show(primaryStage);
+            DialogPopup myPopup = new DialogPopup("Hey bitch, vault's closed.");
+            myPopup.show();
         });
         buttonContainer.getChildren().add(openVault);
 
