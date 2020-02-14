@@ -2,6 +2,7 @@ package themysticalbard.sei.vault;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -28,14 +29,14 @@ public class Main extends Application {
         Button openVault = new Button("Open Vault");
         openVault.setOnAction(event -> {
             if(vault.isUnlocked()) {
-                DialogPopup openPopup = new DialogPopup(vault.isOpen() ? "The vault closes." : "The vault is unlocked and opens easily.");
+                DialogPopup openPopup = new DialogPopup(vault.isOpen() ? "The vault closes." : "The vault is unlocked and opens easily.", AlertType.INFORMATION);
                 openPopup.showAndWait();
 
                 vault.toggleOpen();
                 openVault.setText(vault.isOpen() ? "Close Vault" : "Open Vault");
             }
             else {
-                DialogPopup myPopup = new DialogPopup(vault.isOpen() ? "The vault closes." : "You cannot open the vault, because it is locked.");
+                DialogPopup myPopup = new DialogPopup(vault.isOpen() ? "The vault closes." : "You cannot open the vault, because it is locked.", vault.isOpen() ? AlertType.INFORMATION : AlertType.WARNING);
                 myPopup.showAndWait();
 
                 if(vault.isOpen()) {
@@ -52,7 +53,7 @@ public class Main extends Application {
                 unlockVault.setText(vault.isUnlocked() ? "Lock Vault" : "Unlock Vault");
             }
             else {
-                DialogPopup invalidCredentialPopup = new DialogPopup("You must be logged in to unlock or lock the vault.");
+                DialogPopup invalidCredentialPopup = new DialogPopup("You must be logged in to unlock or lock the vault.", AlertType.WARNING);
                 invalidCredentialPopup.showAndWait();
             }
         });
@@ -64,7 +65,7 @@ public class Main extends Application {
                 vault.changePassword(changePasswordDialog.getUsername(), changePasswordDialog.getPassword());
             }
             else {
-                DialogPopup invalidCredentialPopup = new DialogPopup("You must be an administrator to perform this action.");
+                DialogPopup invalidCredentialPopup = new DialogPopup("You must be an administrator to perform this action.", AlertType.WARNING);
                 invalidCredentialPopup.showAndWait();
             }
         });

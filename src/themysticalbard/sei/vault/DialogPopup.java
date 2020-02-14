@@ -3,8 +3,8 @@ package themysticalbard.sei.vault;
 import javafx.scene.control.Alert;
 
 public class DialogPopup extends Alert {
-    DialogPopup(String text) {
-        super(AlertType.WARNING);
+    DialogPopup(String text, AlertType type) {
+        super(type);
         super.setHeaderText(null);
         super.setContentText(text);
     }

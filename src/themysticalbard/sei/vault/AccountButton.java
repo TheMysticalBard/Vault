@@ -1,6 +1,7 @@
 package themysticalbard.sei.vault;
 
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -33,7 +34,7 @@ public class AccountButton extends Button {
 
                 //Display popup with error if wrong answers given
                 if (!loggedIn) {
-                    DialogPopup invalidCredentialPopup = new DialogPopup("The account credentials could not be verified, please try again.");
+                    DialogPopup invalidCredentialPopup = new DialogPopup("The account credentials could not be verified, please try again.", AlertType.ERROR);
                     invalidCredentialPopup.showAndWait();
                 }
             }
