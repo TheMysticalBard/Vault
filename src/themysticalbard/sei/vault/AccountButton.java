@@ -1,51 +1,66 @@
 package themysticalbard.sei.vault;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class AccountButton extends Button {
     private boolean loggedIn = false;
 
-    AccountButton(String text, Vault v) {
+    AccountButton(String text, Vault vault) {
         super(text);
         super.setOnAction(event -> {
-            //Create popup to enter username and password
-            class PromptResult {
-                String username, pass;
-
-                PromptResult(String u, String p){ username = u; pass = p; }
-            }
-
-            Dialog<PromptResult> dialog = new Dialog<>();
-            TextField usernamePrompt = new TextField(), passwordPrompt = new TextField();
-            usernamePrompt.setPromptText("Username");
-            passwordPrompt.setPromptText("Password");
-            dialog.getDialogPane().setContent(new VBox(20, usernamePrompt, passwordPrompt));
-
-            ButtonType submitType = ButtonType.OK;
-            dialog.getDialogPane().getButtonTypes().add(submitType);
-            dialog.getDialogPane().lookupButton(submitType).disableProperty().bind(usernamePrompt.textProperty().isEmpty().or(passwordPrompt.textProperty().isEmpty()));
-
-            dialog.setResultConverter(param -> new PromptResult(usernamePrompt.getText(), passwordPrompt.getText()));
-
-            PromptResult pot = dialog.showAndWait().orElse(null);
-
-            String username = pot == null ? null : pot.username;
-            String password = pot == null ? null : pot.pass;
-
-            //Verify credentials
-            Employee e = v.getAccounts().get(username);
-            if (e == null) {
+            if(text.equals("Logout")) {
                 loggedIn = false;
             }
+            else {
+                //Class that stores user prompts in the Dialog popup.
+                class PromptResult {
+                    String username, password;
 
-            //Change to logout
-            super.setText(loggedIn ? "Login" : "Logout");
-            loggedIn = !loggedIn;
+                    PromptResult(String user, String pass){
+                        username = user; password = pass;
+                    }
+                }
+
+                //Creates a dialog popup for the user to input the username and password
+                Dialog<PromptResult> dialog = new Dialog<>();
+                Label usernameLabel = new Label("Username:");
+                Label passwordLabel = new Label("Password:");
+                TextField usernamePrompt = new TextField();
+                TextField passwordPrompt = new TextField();
+                usernamePrompt.setPromptText("Username");
+                passwordPrompt.setPromptText("Password");
+                HBox userFields = new HBox(20, usernameLabel, usernamePrompt);
+                HBox passFields = new HBox(20, passwordLabel, passwordPrompt);
+                dialog.getDialogPane().setContent(new VBox(20, userFields, passFields));
+
+                ButtonType submitType = ButtonType.OK;
+                dialog.getDialogPane().getButtonTypes().add(submitType);
+                dialog.getDialogPane().lookupButton(submitType);
+
+                dialog.setResultConverter(param -> new PromptResult(usernamePrompt.getText(), passwordPrompt.getText()));
+
+                PromptResult promptResult = dialog.showAndWait().orElse(null);
+
+                String username = (promptResult == null) ? null : promptResult.username;
+                String password = (promptResult == null) ? null : promptResult.password;
+
+                //Get the Employee associated with the username and verify credentials
+                Employee user = vault.getAccounts().get(username);
+                if (user == null) {
+                    loggedIn = false;
+                } else loggedIn = user.verifyPassword(password);
+
+                //Change to logout
+                super.setText(loggedIn ? "Logout" : "Login");
+
+                //Display popup with error if wrong answers given
+                if (!loggedIn) {
+                    DialogPopup invalidCredentialPopup = new DialogPopup("The account credentials could not be verified, please try again.");
+                    invalidCredentialPopup.showAndWait();
+                }
+            }
         });
     }
-
 }

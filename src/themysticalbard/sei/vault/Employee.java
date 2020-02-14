@@ -5,4 +5,7 @@ public class Employee {
     Employee(String pass) {
         password = pass;
     }
+    public boolean verifyPassword(String testPassword) {
+        return password.equals(testPassword);
+    }
 }

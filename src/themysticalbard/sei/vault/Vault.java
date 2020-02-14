@@ -5,7 +5,9 @@ import java.util.Map;
 
 public class Vault {
     private Map<String, Employee> accounts = new HashMap<>(2);
+    private boolean locked;
     Vault() {
+        locked = true;
         accounts.put("employee", new Employee("12345"));
         accounts.put("admin", new Administrator("123456"));
     }
@@ -19,5 +21,13 @@ public class Vault {
     //The boolean returns true if the username and password match and are in the HashMap, otherwise false.
     public boolean verified(String user, String pass) {
         return false;
+    }
+
+    public void toggleLock() {
+        locked = !locked;
+    }
+
+    public boolean isUnlocked() {
+        return !locked;
     }
 }
