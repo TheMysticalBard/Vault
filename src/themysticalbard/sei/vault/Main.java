@@ -46,26 +46,32 @@ public class Main extends Application {
             }
         });
 
+        //Creates and initializes a button to lock and unlock the vault
         Button unlockVault = new Button("Unlock Vault");
         unlockVault.setOnAction(event -> {
+            //Check to make sure a user is logged in to access the lock as admin or employee
             if(vault.currentUser() != null) {
                 vault.toggleLock();
                 unlockVault.setText(vault.isUnlocked() ? "Lock Vault" : "Unlock Vault");
             }
+            //Display warning stating that they are unable to use this feature
             else {
                 DialogPopup invalidCredentialPopup = new DialogPopup("You must be logged in to unlock or lock the vault.", AlertType.WARNING);
                 invalidCredentialPopup.showAndWait();
             }
         });
 
+        //Creates and initializes a button to modify or add a user
         Button modOrAddUser = new Button("Modify/Add User");
         modOrAddUser.setOnAction(event -> {
+            //Check to see if the user is the admin to actually update users
             if(vault.currentUser() instanceof Administrator) {
                 LoginDialog changePasswordDialog = new LoginDialog();
                 changePasswordDialog.setTitle("Manage Accounts");
                 changePasswordDialog.showAndGetInput();
                 vault.changePassword(changePasswordDialog.getUsername(), changePasswordDialog.getPassword());
             }
+            //Display warning stating that they are no able to access this feature
             else {
                 DialogPopup invalidCredentialPopup = new DialogPopup("You must be an administrator to perform this action.", AlertType.WARNING);
                 invalidCredentialPopup.showAndWait();

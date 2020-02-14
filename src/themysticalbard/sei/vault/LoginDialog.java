@@ -19,6 +19,7 @@ class PromptResult {
 
 public class LoginDialog extends Dialog<PromptResult> {
     PromptResult result;
+    //Constructor creates all the text-fields and buttons
     public LoginDialog() {
         super();
         Label usernameLabel = new Label("Username:");

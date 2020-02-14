@@ -8,6 +8,7 @@ public class Vault {
     private Map<String, Employee> accounts = new HashMap<>(2);
     private boolean locked;
     private boolean open;
+    //Constructor initializing the default state of the vault
     Vault() {
         user = null;
         locked = true;
@@ -27,6 +28,7 @@ public class Vault {
             return false;
     }
 
+    //Method to change the state of the lock
     public void toggleLock() {
         locked = !locked;
     }
@@ -35,6 +37,7 @@ public class Vault {
         return !locked;
     }
 
+    //Method to change the state of the door
     public void toggleOpen() {
         open = !open;
     }
@@ -44,8 +47,10 @@ public class Vault {
     }
 
     public void setUser(String username) {
+        //If username is in the map, get the user
         if(accounts.containsKey(username))
             user = accounts.get(username);
+        //If the username is empty, don't set the user
         if(username == null)
             user = null;
     }
@@ -55,11 +60,15 @@ public class Vault {
     }
 
     public void changePassword(String user, String pass) {
+        //Check if the username is already in the accounts map
         if(accounts.containsKey(user)) {
+            //Update the password in the map
             accounts.get(user).changePassword(pass);
         }
         else{
+            //Make sure the username is not empty
             if (user!=null)
+                //Create a new key in the map.
                 accounts.put(user, new Employee(pass));
         }
     }
