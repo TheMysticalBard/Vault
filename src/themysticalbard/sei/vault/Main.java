@@ -29,13 +29,21 @@ public class Main extends Application {
             if(vault.isUnlocked()) {
                 DialogPopup openPopup = new DialogPopup("The vault is unlocked and opens easily.");
                 openPopup.showAndWait();
+
+                vault.toggleOpen();
+                openVault.setText("Close Vault");
             }
             else {
                 DialogPopup myPopup = new DialogPopup("You cannot open the vault, because it is locked.");
                 myPopup.showAndWait();
             }
         });
+
+//        Button
+
+        //Add all the buttons to the button container
         buttonContainer.getChildren().add(openVault);
+
 
         root.setCenter(buttonContainer);
     }

@@ -10,8 +10,9 @@ public class AccountButton extends Button {
     AccountButton(String text, Vault vault) {
         super(text);
         super.setOnAction(event -> {
-            if(text.equals("Logout")) {
+            if(super.getText().equals("Logout")) {
                 loggedIn = false;
+                super.setText("Login");
             }
             else {
                 //Class that stores user prompts in the Dialog popup.
@@ -47,10 +48,7 @@ public class AccountButton extends Button {
                 String password = (promptResult == null) ? null : promptResult.password;
 
                 //Get the Employee associated with the username and verify credentials
-                Employee user = vault.getAccounts().get(username);
-                if (user == null) {
-                    loggedIn = false;
-                } else loggedIn = user.verifyPassword(password);
+                loggedIn = vault.verified(username, password);
 
                 //Change to logout
                 super.setText(loggedIn ? "Logout" : "Login");
