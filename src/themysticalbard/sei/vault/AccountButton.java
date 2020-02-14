@@ -10,8 +10,9 @@ public class AccountButton extends Button {
     AccountButton(String text, Vault vault) {
         super(text);
         super.setOnAction(event -> {
-            if(super.getText().equals("Logout")) {
+            if(vault.currentUser() != null) {
                 loggedIn = false;
+                vault.setUser(null);
                 super.setText("Login");
             }
             else {
@@ -49,6 +50,9 @@ public class AccountButton extends Button {
 
                 //Get the Employee associated with the username and verify credentials
                 loggedIn = vault.verified(username, password);
+
+                if(loggedIn)
+                    vault.setUser(username);
 
                 //Change to logout
                 super.setText(loggedIn ? "Logout" : "Login");
