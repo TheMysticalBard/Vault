@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Optional;
+
 class PromptResult {
     String username, password;
 
@@ -34,7 +36,9 @@ public class LoginDialog extends Dialog<PromptResult> {
         super.getDialogPane().lookupButton(submitType);
 
         super.setResultConverter(param -> new PromptResult(usernamePrompt.getText(), passwordPrompt.getText()));
+    }
 
+    public void showAndGetInput() {
         result = super.showAndWait().orElse(null);
     }
 

@@ -62,6 +62,8 @@ public class Main extends Application {
         modOrAddUser.setOnAction(event -> {
             if(vault.currentUser() instanceof Administrator) {
                 LoginDialog changePasswordDialog = new LoginDialog();
+                changePasswordDialog.setTitle("Manage Accounts");
+                changePasswordDialog.showAndGetInput();
                 vault.changePassword(changePasswordDialog.getUsername(), changePasswordDialog.getPassword());
             }
             else {

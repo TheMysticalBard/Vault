@@ -19,6 +19,8 @@ public class AccountButton extends Button {
             else {
                 //Create a login dialog box to get the username and password
                 LoginDialog loginDialog = new LoginDialog();
+                loginDialog.setTitle("Login");
+                loginDialog.showAndGetInput();
 
                 String username = loginDialog.getUsername();
                 String password = loginDialog.getPassword();

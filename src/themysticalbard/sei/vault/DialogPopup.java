@@ -7,5 +7,6 @@ public class DialogPopup extends Alert {
         super(type);
         super.setHeaderText(null);
         super.setContentText(text);
+        super.setTitle("");
     }
 }

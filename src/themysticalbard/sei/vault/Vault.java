@@ -58,5 +58,9 @@ public class Vault {
         if(accounts.containsKey(user)) {
             accounts.get(user).changePassword(pass);
         }
+        else{
+            if (user!=null)
+                accounts.put(user, new Employee(pass));
+        }
     }
 }
