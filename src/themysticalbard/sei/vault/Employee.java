@@ -8,4 +8,8 @@ public class Employee {
     public boolean verifyPassword(String testPassword) {
         return password.equals(testPassword);
     }
+
+    public void changePassword(String pass) {
+        password = pass;
+    }
 }

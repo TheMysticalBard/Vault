@@ -16,37 +16,11 @@ public class AccountButton extends Button {
                 super.setText("Login");
             }
             else {
-                //Class that stores user prompts in the Dialog popup.
-                class PromptResult {
-                    String username, password;
+                //Create a login dialog box to get the username and password
+                LoginDialog loginDialog = new LoginDialog();
 
-                    PromptResult(String user, String pass){
-                        username = user; password = pass;
-                    }
-                }
-
-                //Creates a dialog popup for the user to input the username and password
-                Dialog<PromptResult> dialog = new Dialog<>();
-                Label usernameLabel = new Label("Username:");
-                Label passwordLabel = new Label("Password:");
-                TextField usernamePrompt = new TextField();
-                TextField passwordPrompt = new TextField();
-                usernamePrompt.setPromptText("Username");
-                passwordPrompt.setPromptText("Password");
-                HBox userFields = new HBox(20, usernameLabel, usernamePrompt);
-                HBox passFields = new HBox(20, passwordLabel, passwordPrompt);
-                dialog.getDialogPane().setContent(new VBox(20, userFields, passFields));
-
-                ButtonType submitType = ButtonType.OK;
-                dialog.getDialogPane().getButtonTypes().add(submitType);
-                dialog.getDialogPane().lookupButton(submitType);
-
-                dialog.setResultConverter(param -> new PromptResult(usernamePrompt.getText(), passwordPrompt.getText()));
-
-                PromptResult promptResult = dialog.showAndWait().orElse(null);
-
-                String username = (promptResult == null) ? null : promptResult.username;
-                String password = (promptResult == null) ? null : promptResult.password;
+                String username = loginDialog.getUsername();
+                String password = loginDialog.getPassword();
 
                 //Get the Employee associated with the username and verify credentials
                 loggedIn = vault.verified(username, password);

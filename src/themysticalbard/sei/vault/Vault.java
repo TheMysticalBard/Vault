@@ -53,4 +53,10 @@ public class Vault {
     public Employee currentUser() {
         return user;
     }
+
+    public void changePassword(String user, String pass) {
+        if(accounts.containsKey(user)) {
+            accounts.get(user).changePassword(pass);
+        }
+    }
 }

@@ -57,9 +57,22 @@ public class Main extends Application {
             }
         });
 
+        Button modOrAddUser = new Button("Modify/Add User");
+        modOrAddUser.setOnAction(event -> {
+            if(vault.currentUser() instanceof Administrator) {
+                LoginDialog changePasswordDialog = new LoginDialog();
+                vault.changePassword(changePasswordDialog.getUsername(), changePasswordDialog.getPassword());
+            }
+            else {
+                DialogPopup invalidCredentialPopup = new DialogPopup("You must be an administrator to perform this action.");
+                invalidCredentialPopup.showAndWait();
+            }
+        });
+
         //Add all the buttons to the button container
         buttonContainer.getChildren().add(openVault);
         buttonContainer.getChildren().add(unlockVault);
+        buttonContainer.getChildren().add(modOrAddUser);
 
         root.setCenter(buttonContainer);
     }
