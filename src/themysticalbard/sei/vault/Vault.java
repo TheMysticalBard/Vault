@@ -13,8 +13,8 @@ public class Vault {
         user = null;
         locked = true;
         open = false;
-        accounts.put("employee", new Employee("12345"));
-        accounts.put("admin", new Administrator("123456"));
+        accounts.put("employee", EmployeeFactory.createEmployee("12345"));
+        accounts.put("admin", Administrator.getAdmin());
     }
 
     //Checks to see if the user exists in the accounts HashMap, and then checks to see if the employee associated with
